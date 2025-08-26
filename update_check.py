@@ -6,7 +6,7 @@ check_files_fixed_list.py
 The files to check are stored in FILES_TO_CHECK (array).
 Compares the newest mtime from this list with the last commit
 of the fixed Atom feed:
-  https://github.com/chrisi51/tesla-order-status/commits/main.atom
+  https://github.com/MarcDGit/tesla-order-status/commits/main.atom
 
 Exit codes:
   0 -> everything up to date
@@ -31,11 +31,11 @@ FILES_TO_CHECK: List[str] = [
     "tesla_stores.py",
     "option-codes/000_teslahunt.json",
     "option-codes/050_directlease.json",
-    "option-codes/100_chrisi51.json",
+    "option-codes/100_options.json",
     "update_check.py"
 ]
 
-FEED_URL = "https://github.com/chrisi51/tesla-order-status"
+FEED_URL = "https://github.com/MarcDGit/tesla-order-status"
 ZIP_URL = f"{FEED_URL}/archive/refs/heads/main.zip"
 REQUEST_TIMEOUT = 10  # Sekunden
 

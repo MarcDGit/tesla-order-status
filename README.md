@@ -1,130 +1,254 @@
-## Download
-Download the complete projekt. 
-If you don't know how to do so, just follow that link: https://github.com/chrisi51/tesla-order-status/archive/refs/heads/main.zip 
+# 🚗 Tesla Order Status Tracker - Web Interface
 
-Don't try to just run single scripts without the context of the entire projekt =)
+A modern, user-friendly web application to track and monitor your Tesla order status with automatic change detection and detailed vehicle information display.
 
-## Installation
+## 🌟 Overview
 
-To run the script, you need to install python3 for your operating system.
+This tool provides a beautiful web interface to monitor your Tesla order status by connecting to Tesla's official API. It tracks changes over time, provides detailed vehicle configuration information, and offers an intuitive dashboard for easy monitoring.
 
-https://www.python.org/downloads/
+### ✨ Key Features
 
-### General
-Then you need to install the additional libraries by running:
-```sh
-pip install requests pyperclip
+- **🔐 Browser-Based Authentication**: Secure Tesla login with copy-paste workflow
+- **📊 Interactive Dashboard**: Visual order status with real-time metrics
+- **📈 Change History Visualization**: Interactive charts and timeline views
+- **🔍 Searchable Option Code Database**: Comprehensive Tesla option code reference
+- **💾 Privacy Controls**: Hide sensitive data for sharing screenshots
+- **🔄 Auto-Refresh**: Automatic data updates and change detection
+- **📱 Responsive Design**: Works perfectly on desktop, tablet, and mobile
+- **🎨 Modern UI**: Beautiful, intuitive interface built with Streamlit
+
+## 📋 Requirements
+
+- Python 3.7 or higher
+- Internet connection for API access
+- Tesla account with an active order
+- Modern web browser
+
+## 🚀 Quick Start
+
+### 1. Download the Project
+
+```bash
+git clone https://github.com/MarcDGit/tesla-order-status.git
+cd tesla-order-status
 ```
 
-- requests: for the api calls (required)
-- pyperclip: for copying content to the clipboard in sharing mode (optional)
+Or download as ZIP: https://github.com/MarcDGit/tesla-order-status/archive/refs/heads/main.zip
 
-### MacOS
-On MacOS it may be better to create a virtual environment:
-```sh
-# creating the environment
-python3 -m venv .venv
-# using the environment
-source .venv/bin/activate
-# installing dependency only in the environment instead of globally
-python3 -m pip install requests pyperclip
+### 2. Launch the Application
+
+**Simple one-command startup:**
+```bash
+python3 app.py
 ```
 
-## Usage
-Then you can run the script by running:
-```sh
-python3 tesla_order_status.py
-```
-### Optional flags:
-```sh
-python3 tesla_order_status.py --help
-```
-#### Output Modes
-Only one of the options can be used at a time.
-- `--details` show additional information such as financing details.
-- `--share` hide personal data like order ID and VIN for sharing. the history is reduced to date and status changes.
-- `--status` only report whether the order information has changed since the last run. no login happens, so tesla_tokens.json have to be present already. token will get refreshed if necessary.
-  - 0 => no changes
-  - 1 => changes detected
-  - -1 => error ... you better run the script once without any params to make sure, it is working. Possibly the api token is invalid or there is no tesla_orders.json already
-#### Work Modes
-can be combined with Output Modes
-  - `--cached` use locally cached order data without performing any API requests. Useful combined with `--share` to get a share friendly output without polling API again.
+The application will:
+- ✅ Check and install dependencies automatically
+- 🚀 Launch the web interface in your browser
+- 📱 Open at `http://localhost:8501`
 
-## Configuration
-In the folder `option-codes` all known tesla option codes are stored. You can put in your own json files to extend the list. Files get loaded in alphabetic order and last occurence of any option codes win.
+**Alternative manual launch:**
+```bash
+# Install dependencies first (optional)
+pip install -r requirements.txt
 
-## History
-The script stores the latest order information in `tesla_orders.json` and keeps a change log in `tesla_order_history.json`. Each time a difference is detected (for example a VIN assignment), the change is appended to the history file and displayed after the current status.
-The Order Information screen will always show you the current data but below that you will see the history of your runs with changing data. 
-
-## Issues
-If you have any issues, running the script or getting error messages, pleas feel free to ask for help in the [isses](https://github.com/chrisi51/tesla-order-status/issues) section or pm me at the [tff-forum](https://tff-forum.de/u/chrisi51/summary)
-
-## Preview
-
-#### Order Information
-```
----------------------------------------------
-              ORDER INFORMATION
----------------------------------------------
-Order Details:
-- Order ID: RN100000000
-- Status: BOOKED
-- Model: my
-- VIN: N/A
-
-Configuration Options:
-- APBS: Autopilot base features
-- APPB: Enhanced Autopilot
-- CPF0: Standard Connectivity
-- IPW8: Interior: Black and White
-- MDLY: Model Y
-- MTY47: Model Y Long Range Dual Motor
-- PPSB: Paint: Deep Blue Metallic
-- SC04: Pay-per-use Supercharging
-- STY5S: Seating: 5 Seat Interior
-- WY19P: 19" Crossflow wheels (Model Y Juniper)
-
-Reservation Details:
-- Reservation Date: 2025-08-07T12:00:00.000000
-- Order Booked Date: 2025-08-07T12:00:00.000000
-
-Vehicle Status:
-- Vehicle Odometer: 30 KM
-
-Delivery Information:
-- Routing Location: None (N/A)
-- Delivery Center: Tesla Delivery & Used Car Center Hanau Holzpark
-- Delivery Window: 6 September - 30 September
-- ETA to Delivery Center: None
-- Delivery Appointment: None
-
-Financing Information:
-- Finance Partner: Santander Consumer Leasing GmbH
----------------------------------------------
+# Launch directly
+streamlit run streamlit_app.py
 ```
 
+### 3. Authenticate with Tesla
 
-#### Change History
-```
-Change History:
-2025-08-19: ≠ 0.details.tasks.deliveryDetails.regData.regDetails.company.address.careOf: Maximilian Mustermann -> Max Mustermann
-2025-08-19: ≠ 0.details.tasks.deliveryDetails.regData.orderDetails.vin: None -> 131232
-2025-08-19: + 0.details.tasks.deliveryDetails.regData.orderDetails.userId: 10000000
-2025-08-19: - 0.details.tasks.deliveryDetails.regData.orderDetails.ritzbitz
-```
-In SHARED_MODE the change history is reduced to date and status changes.
+1. **Click "Open Tesla Login Page"** in the web interface
+2. **Log in** with your Tesla account credentials
+3. **Copy the redirect URL** from your browser (you'll see a "Page Not Found" - this is normal!)
+4. **Paste the URL** into the Streamlit interface
+5. **Click "Complete Authentication"**
 
-## Disclaimer
-- the script is working on your host
-- no connection to me is done in any way at any time
-- you need to login via browser and return the resulting url to the script to extract the login token which is used for tha api
-- the script just uses the token to work with for the moment
-- with your permission the script stores the token on your harddisk
+🎉 You're ready to track your Tesla order!
 
-## Support
-If you want to support me, you can use my link on your next tesla order =)
-https://ts.la/christian906959
+## 📸 Screenshots
 
-as this is a fork i have to say thx @ https://github.com/niklaswa/tesla-order-status for the script
+### 🏠 Welcome & Authentication
+- Clean, guided authentication process
+- Step-by-step instructions
+- Visual feedback and progress indicators
+
+### 📊 Order Dashboard
+- Real-time order status overview
+- Vehicle configuration details
+- Delivery timeline and progress
+- Interactive metrics and cards
+
+### 📈 Change History
+- Timeline visualization of order changes
+- Interactive charts and graphs
+- Detailed change logs with timestamps
+- Recent changes highlighted
+
+### 🔍 Option Codes Reference
+- Searchable database of Tesla option codes
+- Real-time filtering and search
+- Comprehensive code descriptions
+- Easy-to-browse interface
+
+## 🔐 Security & Privacy
+
+### 🛡️ Security Features
+- **Direct Tesla Authentication**: Login happens directly with Tesla
+- **No Credential Storage**: Your password never touches our application
+- **Local Data Processing**: All data stays on your computer
+- **Official Tesla API**: Uses only Tesla's official API endpoints
+- **Token Security**: Authentication tokens stored locally and encrypted
+
+### 🔒 Privacy Controls
+- **Hide Sensitive Data**: Toggle to hide Order ID, VIN, and personal info
+- **Local Storage**: No data sent to third parties
+- **Data Control**: You control all stored data and can clear it anytime
+- **Sharing Mode**: Privacy-friendly mode for screenshots
+
+## 📊 Data Files
+
+The application creates several files in your project directory:
+
+- **`tesla_tokens.json`**: Stores authentication tokens (created after first login)
+- **`tesla_orders.json`**: Caches current order information
+- **`tesla_order_history.json`**: Maintains complete change history
+
+These files are stored locally on your machine and never shared.
+
+## ⚙️ Configuration
+
+### Option Code Database
+The `option-codes/` directory contains comprehensive Tesla option code definitions:
+- **`000_teslahunt.json`**: Main option code database from TeslaHunt
+- **`050_directlease.json`**: Direct lease specific codes
+- **`100_options.json`**: Custom codes and community overrides
+
+Files are loaded alphabetically, with later files overriding earlier ones for duplicate codes.
+
+### Web Interface Settings
+Access configuration through the "⚙️ Configuration" page:
+- Privacy settings (show/hide sensitive data)
+- Data refresh controls
+- Authentication management
+- File status overview
+
+## 🛠️ Project Structure
+
+### Core Application Files
+- **`app.py`**: Main launcher script (use this to start!)
+- **`streamlit_app.py`**: Complete web interface application
+- **`tesla_order_status.py`**: Core order tracking functionality (deprecated CLI)
+- **`requirements.txt`**: Python dependencies
+- **`tesla_stores.py`**: Tesla store and delivery center database
+- **`update_check.py`**: Automatic update checker
+
+### Option Code Databases
+- **`option-codes/`**: Directory containing Tesla option code definitions
+  - Comprehensive database covering all Tesla models and configurations
+  - Regular updates from community contributors
+  - Searchable through the web interface
+
+## 🆘 Troubleshooting
+
+### Common Issues
+
+**🌐 Web Interface**
+- **Port in use**: Streamlit will automatically find an available port
+- **Browser doesn't open**: Manually navigate to `http://localhost:8501`
+- **Page won't load**: Check that Python and Streamlit are running
+
+**🔐 Authentication**
+- **"Page Not Found" error**: This is normal! Just copy the URL
+- **Authentication fails**: Make sure you copied the complete redirect URL
+- **Token expired**: Use "Sign Out" button and re-authenticate
+
+**📦 Dependencies**
+- **Missing modules**: Run `pip install -r requirements.txt`
+- **Old Python version**: Upgrade to Python 3.7 or higher
+- **Permission errors**: Try using `python3 -m pip install` instead
+
+### Getting Help
+
+If you need assistance:
+
+1. **Check Issues**: [GitHub Issues](https://github.com/MarcDGit/tesla-order-status/issues)
+2. **Create Issue**: Provide detailed information about your problem
+3. **Community Support**: [Tesla Forum Discussion](https://tff-forum.de/u/chrisi51/summary)
+
+When reporting issues, include:
+- Operating system (Windows, macOS, Linux)
+- Python version (`python3 --version`)
+- Error messages (full stack trace if available)
+- Steps to reproduce the problem
+
+## 🤝 Credits & Acknowledgments
+
+### Original Work
+- **[niklaswa](https://github.com/niklaswa)** - Original [tesla-order-status](https://github.com/niklaswa/tesla-order-status) CLI script
+
+### Enhanced Version
+- **[chrisi51](https://github.com/chrisi51)** - Enhanced CLI version and previous maintainer
+  - Enhanced option code database and change detection
+  - Improved delivery center information and history tracking
+  - Multiple output modes and clipboard integration
+  - Advanced change history and formatting features
+- **[MarcDGit](https://github.com/MarcDGit)** - Current maintainer with Streamlit web interface
+  - Complete Streamlit web application and dashboard
+  - Browser-based authentication workflow
+  - Interactive visualizations and modern UI
+- **Repository**: https://github.com/MarcDGit/tesla-order-status
+- **Support**: [Tesla Forum Profile](https://tff-forum.de/u/chrisi51/summary)
+
+### Data Sources
+- **TeslaHunt**: Comprehensive option code database
+- **Direct Lease**: Leasing-specific option codes
+- **Community Contributors**: Ongoing option code updates and feature improvements
+
+## 💝 Support the Project
+
+If you find this tool helpful:
+
+- **⭐ Star the Repository**: Help others discover this tool
+- **🚗 Tesla Referral**: Use [MarcDGit's Tesla referral link](https://www.tesla.com/referral/marc79126) when ordering
+- **🐛 Report Issues**: Help improve the tool by reporting bugs
+- **💡 Suggest Features**: Share ideas for new functionality
+- **🤝 Contribute**: Submit code improvements or option code updates
+
+## 📄 License
+
+This project is open source. Please respect Tesla's API terms of service and use responsibly.
+
+## 🔄 Recent Updates
+
+### 🆕 Web Interface Version (Current)
+- **🌐 Complete Web Interface**: Beautiful, modern dashboard
+- **🔐 Browser Authentication**: Streamlined Tesla login process
+- **📊 Interactive Visualizations**: Charts, graphs, and timeline views
+- **📱 Mobile Responsive**: Works on all devices
+- **🎨 Modern Design**: Intuitive, user-friendly interface
+- **⚡ Auto-Refresh**: Real-time updates and change detection
+- **🔍 Advanced Search**: Searchable option code database
+- **⚙️ Configuration UI**: Web-based settings management
+
+### 📈 Enhanced Features
+- Comprehensive Tesla store location database
+- Advanced change detection and history tracking
+- Privacy controls for sharing
+- Automatic update checking
+- Better error handling and user guidance
+- Real-time data caching and refresh
+
+---
+
+## 🚨 Important Notes
+
+- **No Tesla Affiliation**: This tool is not affiliated with Tesla, Inc.
+- **Official API**: Uses Tesla's official API endpoints only
+- **Your Credentials**: Requires your Tesla account for authentication
+- **Terms of Service**: Use in accordance with Tesla's terms of service
+- **At Your Own Risk**: Use at your own discretion
+
+---
+
+**🌟 Enjoy tracking your Tesla order with this modern, user-friendly interface!**

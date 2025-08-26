@@ -1,3 +1,7 @@
+# DEPRECATED: This CLI version has been replaced by the Streamlit web interface.
+# Use app.py or streamlit_app.py instead.
+# This file is kept for reference and backward compatibility.
+
 from glob import glob
 import argparse
 import base64
@@ -482,7 +486,7 @@ def display_orders(detailed_orders):
 
     if SHARE_MODE:
         print(f"\n{color_text('Do you want to share your data and compete with others? Check out the script on GitHub:', '94')}")
-        print(f"{color_text('https://github.com/chrisi51/tesla-order-status', '94')}")
+        print(f"{color_text('https://github.com/MarcDGit/tesla-order-status', '94')}")
         # Copy captured output to clipboard if in SHARE_MODE
         if HAS_PYPERCLIP:
             sys.stdout = original_stdout
@@ -493,7 +497,7 @@ def display_orders(detailed_orders):
             print(f"\n{color_text('Output has been copied to clipboard!', '94')}")
         else:
             print(f"\n{color_text('To automatically copy the text to your clipboard, see the installation guide for details:', '91')}")
-            print(f"{color_text('https://github.com/chrisi51/tesla-order-status?tab=readme-ov-file#general', '91')}")
+            print(f"{color_text('https://github.com/MarcDGit/tesla-order-status?tab=readme-ov-file#general', '91')}")
 
     else:
         print(f"\n{color_text('try --help for showing the new features, that may be interesting for you =)', '94')}")
@@ -597,9 +601,10 @@ else:
     if STATUS_MODE:
         print("-1")
     else:
-        # ask user if they want to save the new orders to a file for comparison next time
-        if input(color_text("Would you like to save the order information to a file for future comparison? (y/n): ", '93')).lower() == 'y':
-            save_orders_to_file(detailed_new_orders)
+        # Automatically save order information for future comparison (moved from interactive prompt to match Streamlit behavior)
+        save_orders_to_file(detailed_new_orders)
+        if not STATUS_MODE:
+            print(color_text("> Order information saved for future comparison", '94'))
 
 if STATUS_MODE:
     sys.exit(0)

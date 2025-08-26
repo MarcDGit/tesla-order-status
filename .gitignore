@@ -5,3 +5,4 @@
 /tesla_tokens.json
 /tesla_order_history.json
 *.bak
+.env
