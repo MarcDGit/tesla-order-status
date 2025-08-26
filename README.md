@@ -174,7 +174,6 @@ If you need assistance:
 
 1. **Check Issues**: [GitHub Issues](https://github.com/MarcDGit/tesla-order-status/issues)
 2. **Create Issue**: Provide detailed information about your problem
-3. **Community Support**: [Tesla Forum Discussion](https://tff-forum.de/u/chrisi51/summary)
 
 When reporting issues, include:
 - Operating system (Windows, macOS, Linux)
@@ -198,7 +197,6 @@ When reporting issues, include:
   - Browser-based authentication workflow
   - Interactive visualizations and modern UI
 - **Repository**: https://github.com/MarcDGit/tesla-order-status
-- **Support**: [Tesla Forum Profile](https://tff-forum.de/u/chrisi51/summary)
 
 ### Data Sources
 - **TeslaHunt**: Comprehensive option code database
